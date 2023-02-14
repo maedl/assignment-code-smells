@@ -1,7 +1,7 @@
 /*
   1. Se om du kan hitta två stycken code smells i följande funktion och rätta till dem.
   Funktionen tar emot en lista med längshoppslängder och syftet med funktionen är att summera
-  dessa hopplängder.
+  dessa hopplängder. ✔️
   */
 
 function getLength(jumpings: number[]): number {
@@ -121,16 +121,11 @@ function presentStudents(students: Student[]) {
   Lorem, ipsum, dolor, sit, amet
   Exemplet under löser problemet, men inte speciellt bra. Hur kan man göra istället?
   */
-function concatenateStrings() {
-  let result = "";
-  result += "Lorem";
-  result += "ipsum";
-  result += "dolor";
-  result += "sit";
-  result += "amet";
 
-  return result;
-}
+  let stringsToConcat: string[] = ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'];
+  function concatenateStrings(strings: string[]) {
+    return strings.join(', ');
+  }
 
 /* 
 7. Denna funktion skall kontrollera att en användare är över 20 år och göra någonting.
