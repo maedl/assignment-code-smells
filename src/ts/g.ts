@@ -38,10 +38,10 @@ class Temp {
 function averageWeeklyTemperature(heights: Temp[]) {
   let r = 0;
 
-  for (let who = 0; who < heights.length; who++) {
-    if (heights[who].q === "Stockholm") {
-      if (heights[who].where.getTime() > Date.now() - 604800000) {
-        r += heights[who].v;
+  for (let i = 0; i < heights.length; i++) {
+    if (heights[i].q === "Stockholm") {
+      if (heights[i].where.getTime() > Date.now() - 604800000) {
+        r += heights[i].v;
       }
     }
   }
