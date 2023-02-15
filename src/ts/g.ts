@@ -31,19 +31,21 @@ function getStudentStatus(student: Student): string {
   Det finns flera code smells att identifiera här. Vissa är lurigare än andra.
   */
 
+  const DAYS_IN_WEEK: number = 7;
+  const WEEK_IN_MS: number = 604800000;
 
-function averageWeeklyTemperature(heights: Temp[], city: string) {
-  let r = 0;
-
-  for (let i = 0; i < heights.length; i++) {
-    if (heights[i].city === city) {
-      if (heights[i].today.getTime() > Date.now() - 604800000) {
-        r += heights[i].tempInCelsius;
+function averageWeeklyTemperature(tempHeights: Temp[], city: string) {
+  let sumOfTempHeights = 0;
+  
+  for (let i = 0; i < tempHeights.length; i++) {
+    if (tempHeights[i].city === city) {
+      if (tempHeights[i].today.getTime() > Date.now() - WEEK_IN_MS) {
+        sumOfTempHeights += tempHeights[i].tempInCelsius;
       }
     }
   }
 
-  return r / 7;
+  return sumOfTempHeights / DAYS_IN_WEEK;
 }
 
 /*
