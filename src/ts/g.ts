@@ -1,3 +1,5 @@
+import { Student } from "./models/Student";
+
 /*
   1. Se om du kan hitta två stycken code smells i följande funktion och rätta till dem.
   Funktionen tar emot en lista med längshoppslängder och syftet med funktionen är att summera
@@ -14,27 +16,14 @@ function getLength(jumpings: number[]): number {
   2. I detta exempel har vi fokuserat på if-statements. Se om du kan göra exemplet bättre!
   */
 
-class Student {
-  constructor(
-    public name: string,
-    public handedInOnTime: boolean,
-    public passed: boolean
-  ) {}
-}
+
+const SEBASTIAN_ALWAYS_PASS: string = 'Sebastian';
 
 function getStudentStatus(student: Student): string {
-  student.passed =
-    student.name == "Sebastian"
-      ? student.handedInOnTime
-        ? true
-        : false
-      : false;
-
-  if (student.passed) {
-    return "VG";
-  } else {
-    return "IG";
-  }
+  if (student.name == SEBASTIAN_ALWAYS_PASS && (student.handedInOnTime))
+    return 'VG'
+  else 
+    return 'IG';
 }
 
 /*
@@ -120,7 +109,8 @@ function presentStudents(students: Student[]) {
   6. Skriv en funktion som skall slå ihop följande texter på ett bra sätt:
   Lorem, ipsum, dolor, sit, amet
   Exemplet under löser problemet, men inte speciellt bra. Hur kan man göra istället?
-  */
+  ✔️
+  */ 
 
   let stringsToConcat: string[] = ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'];
   function concatenateStrings(strings: string[]) {
