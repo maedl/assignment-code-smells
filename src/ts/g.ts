@@ -31,17 +31,14 @@ function getStudentStatus(student: Student): string {
   Det finns flera code smells att identifiera här. Vissa är lurigare än andra.
   */
 
-class Temp {
-  constructor(public q: string, public where: Date, public v: number) {}
-}
 
-function averageWeeklyTemperature(heights: Temp[]) {
+function averageWeeklyTemperature(heights: Temp[], city: string) {
   let r = 0;
 
   for (let i = 0; i < heights.length; i++) {
-    if (heights[i].q === "Stockholm") {
-      if (heights[i].where.getTime() > Date.now() - 604800000) {
-        r += heights[i].v;
+    if (heights[i].city === city) {
+      if (heights[i].today.getTime() > Date.now() - 604800000) {
+        r += heights[i].tempInCelsius;
       }
     }
   }
