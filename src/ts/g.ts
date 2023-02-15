@@ -35,17 +35,22 @@ function getStudentStatus(student: Student): string {
   const WEEK_IN_MS: number = 604800000;
 
 function averageWeeklyTemperature(tempHeights: Temp[], city: string) {
-  let sumOfTempHeights = 0;
-  
-  for (let i = 0; i < tempHeights.length; i++) {
-    if (tempHeights[i].city === city) {
-      if (tempHeights[i].today.getTime() > Date.now() - WEEK_IN_MS) {
-        sumOfTempHeights += tempHeights[i].tempInCelsius;
-      }
-    }
-  }
 
-  return sumOfTempHeights / DAYS_IN_WEEK;
+  let tempReduced = tempHeights.reduce((tempSum: number, tempObject: Temp) => {
+    if (tempObject.city === city && (isWithinAWeek(tempObject))) {
+      return tempSum + tempObject.tempInCelsius;
+    }
+    else return tempSum;
+  }, 0);
+
+  return tempReduced / DAYS_IN_WEEK;
+}
+
+function isWithinAWeek(temperature: Temp): boolean {
+  if (temperature.timeReadInMs.getTime() > Date.now() - WEEK_IN_MS) {
+    return true;
+  }
+  else return false;
 }
 
 /*
