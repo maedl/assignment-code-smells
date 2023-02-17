@@ -81,28 +81,24 @@ function showProduct(product: GProduct) {
 /*
   5. Följande funktion kommer presentera studenter. Men det finns ett antal saker som 
   går att göra betydligt bättre. Gör om så många som du kan hitta!
+  ✔️
   */
+
 function presentStudents(students: Student[]) {
   for (const student of students) {
+    let container = document.createElement("div") as HTMLDivElement;
+    let checkbox = document.createElement("input") as HTMLInputElement;
+    checkbox.type = "checkbox";
+    checkbox.checked = true;
+    let listOfStudents = document.querySelector("ul#failedstudents") as HTMLUListElement;
+   
     if (student.handedInOnTime) {
-      let container = document.createElement("div");
-      let checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = true;
-
-      container.appendChild(checkbox);
-      let listOfStudents = document.querySelector("ul#passedstudents");
-      listOfStudents?.appendChild(container);
-    } else {
-      let container = document.createElement("div");
-      let checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
+      listOfStudents = document.querySelector("ul#passedstudents") as HTMLUListElement;
       checkbox.checked = false;
+    }
 
       container.appendChild(checkbox);
-      let listOfStudents = document.querySelector("ul#failedstudents");
       listOfStudents?.appendChild(container);
-    }
   }
 }
 
