@@ -1,6 +1,7 @@
 import { GProduct } from "./models/Product";
 import { Student } from "./models/Student";
 import { Temp } from "./models/Temp";
+import { User } from "./models/User";
 
 /*
   1. Se om du kan hitta två stycken code smells i följande funktion och rätta till dem.
@@ -120,21 +121,19 @@ function presentStudents(students: Student[]) {
     fler och fler parametrar behöver läggas till? T.ex. avatar eller adress. Hitta en bättre
     lösning som är hållbar och skalar bättre. 
 */
-function createUser(
-  name: string,
-  birthday: Date,
-  email: string,
-  password: string
-) {
-  // Validation
 
+function validateAge(birthday: Date): boolean {
   let ageDiff = Date.now() - birthday.getTime();
   let ageDate = new Date(ageDiff);
   let userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
+  if ((userAge > 20)) {
+    return true;
+  }
+  return false;
+}
 
-  console.log(userAge);
-
-  if (!(userAge < 20)) {
+function createUser(user: User) {
+  if (validateAge(user.birthday)) {
     // Logik för att skapa en användare
   } else {
     return "Du är under 20 år";
