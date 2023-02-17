@@ -1,4 +1,6 @@
+import { GProduct } from "./models/Product";
 import { Student } from "./models/Student";
+import { Temp } from "./models/Temp";
 
 /*
   1. Se om du kan hitta två stycken code smells i följande funktion och rätta till dem.
@@ -20,7 +22,7 @@ function getLength(jumpings: number[]): number {
 const SEBASTIAN_ALWAYS_PASS: string = 'Sebastian';
 
 function getStudentStatus(student: Student): string {
-  if (student.name == SEBASTIAN_ALWAYS_PASS && (student.handedInOnTime))
+  if ((student.name == SEBASTIAN_ALWAYS_PASS) && (student.handedInOnTime))
     return 'VG'
   else 
     return 'IG';
@@ -29,25 +31,27 @@ function getStudentStatus(student: Student): string {
 /*
   3. Variabelnamn är viktiga. Kika igenom följande kod och gör om och rätt.
   Det finns flera code smells att identifiera här. Vissa är lurigare än andra.
+  ✔️
   */
 
   const DAYS_IN_WEEK: number = 7;
   const WEEK_IN_MS: number = 604800000;
 
-function averageWeeklyTemperature(tempHeights: Temp[], city: string) {
+function averageWeeklyTemperatureInCity(tempHeights: Temp[], city: string) {
+  const startingValue: number = 0;
 
   let tempReduced = tempHeights.reduce((tempSum: number, tempObject: Temp) => {
     if (tempObject.city === city && (isWithinAWeek(tempObject))) {
       return tempSum + tempObject.tempInCelsius;
     }
     else return tempSum;
-  }, 0);
+  }, startingValue);
 
   return tempReduced / DAYS_IN_WEEK;
 }
 
 function isWithinAWeek(temperature: Temp): boolean {
-  if (temperature.timeReadInMs.getTime() > Date.now() - WEEK_IN_MS) {
+  if (temperature.timeMeasured.getTime() > Date.now() - WEEK_IN_MS) {
     return true;
   }
   else return false;
@@ -58,27 +62,20 @@ function isWithinAWeek(temperature: Temp): boolean {
   Se om du kan göra det bättre. Inte bara presentationen räknas, även strukturer.
   */
 
-function showProduct(
-  name: string,
-  price: number,
-  amount: number,
-  description: string,
-  image: string,
-  parent: HTMLElement
-) {
-  let container = document.createElement("div");
-  let title = document.createElement("h4");
-  let pris = document.createElement("strong");
-  let imageTag = document.createElement("img");
+function showProduct(product: GProduct) {
+  let container = document.createElement("div") as HTMLDivElement;
+  let title = document.createElement("h4") as HTMLHeadingElement;
+  let price = document.createElement("strong") as HTMLElement;
+  let imageTag = document.createElement("img") as HTMLImageElement;
 
-  title.innerHTML = name;
-  pris.innerHTML = price.toString();
-  imageTag.src = image;
+  title.innerHTML = product.name;
+  price.innerHTML = product.price.toString();
+  imageTag.src = product.image;
 
   container.appendChild(title);
   container.appendChild(imageTag);
-  container.appendChild(pris);
-  parent.appendChild(container);
+  container.appendChild(price);
+  product.parent.appendChild(container);
 }
 
 /*

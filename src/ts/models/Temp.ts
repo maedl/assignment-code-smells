@@ -1,7 +1,7 @@
-class Temp {
+export class Temp {
   constructor(
     public city: string,
-    public timeReadInMs: Date,
+    public timeMeasured: Date,
     public tempInCelsius: number
     ) {}
 }
