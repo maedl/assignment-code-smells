@@ -86,19 +86,23 @@ function showProduct(product: GProduct) {
 
 function presentStudents(students: Student[]) {
   for (const student of students) {
-    let container = document.createElement("div") as HTMLDivElement;
+    let container = document.createElement("li") as HTMLLIElement;
+    let nameElement = document.createElement('div') as HTMLDivElement;
     let checkbox = document.createElement("input") as HTMLInputElement;
+    container.classList.add('flex-direction-column');
     checkbox.type = "checkbox";
-    checkbox.checked = true;
+    checkbox.checked = false;
+    nameElement.innerText = student.name;
     let listOfStudents = document.querySelector("ul#failedstudents") as HTMLUListElement;
    
     if (student.handedInOnTime) {
       listOfStudents = document.querySelector("ul#passedstudents") as HTMLUListElement;
-      checkbox.checked = false;
+      checkbox.checked = true;
     }
 
-      container.appendChild(checkbox);
-      listOfStudents?.appendChild(container);
+    container.appendChild(nameElement)
+    container.appendChild(checkbox);
+    listOfStudents?.appendChild(container);
   }
 }
 
@@ -109,9 +113,9 @@ function presentStudents(students: Student[]) {
   ✔️
   */ 
 
-  let stringsToConcat: string[] = ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'];
-  function concatenateStrings(strings: string[]) {
-    return strings.join(', ');
+  let wordsToConcat: string[] = ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'];
+  function concatenateStrings(words: string[]) {
+    return words.join(', ');
   }
 
 /* 
