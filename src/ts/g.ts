@@ -1,6 +1,6 @@
-import { GProduct } from "./models/Product";
+import { GProduct } from "./models/GProduct";
 import { Student } from "./models/Student";
-import { Temp } from "./models/Temp";
+import { highestDailyTemp } from "./models/highestDailyTemp";
 import { User } from "./models/User";
 
 /*
@@ -18,7 +18,6 @@ function getLength(jumpings: number[]): number {
 /*
   2. I detta exempel har vi fokuserat på if-statements. Se om du kan göra exemplet bättre!
   */
-
 
 const SEBASTIAN_ALWAYS_PASS: string = 'Sebastian';
 
@@ -38,21 +37,21 @@ function getStudentStatus(student: Student): string {
   const DAYS_IN_WEEK: number = 7;
   const WEEK_IN_MS: number = 604800000;
 
-function averageWeeklyTemperatureInCity(tempHeights: Temp[], city: string) {
+function averageWeeklyTempInCity(tempHeights: highestDailyTemp[], city: string) {
   const startingValue: number = 0;
 
-  let tempReduced = tempHeights.reduce((tempSum: number, tempObject: Temp) => {
-    if (tempObject.city === city && (isWithinAWeek(tempObject))) {
-      return tempSum + tempObject.tempInCelsius;
+  let tempSum = tempHeights.reduce((tempSum: number, tempInfo: highestDailyTemp) => {
+    if (tempInfo.city === city && (isWithinAWeek(tempInfo.timeMeasured))) {
+      return tempSum + tempInfo.celsius;
     }
     else return tempSum;
   }, startingValue);
 
-  return tempReduced / DAYS_IN_WEEK;
+  return tempSum / DAYS_IN_WEEK;
 }
 
-function isWithinAWeek(temperature: Temp): boolean {
-  if (temperature.timeMeasured.getTime() > Date.now() - WEEK_IN_MS) {
+function isWithinAWeek(timeMeasured: Date): boolean {
+  if (timeMeasured.getTime() > Date.now() - WEEK_IN_MS) {
     return true;
   }
   else return false;

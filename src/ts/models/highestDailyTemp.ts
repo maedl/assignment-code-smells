@@ -1,7 +1,7 @@
-export class Temp {
+export class highestDailyTemp {
   constructor(
     public city: string,
     public timeMeasured: Date,
-    public tempInCelsius: number
+    public celsius: number
     ) {}
 }
