@@ -34,27 +34,35 @@ function getStudentStatus(student: Student): string {
   ✔️
   */
 
-  const DAYS_IN_WEEK: number = 7;
-  const WEEK_IN_MS: number = 604800000;
-
 function averageWeeklyTempInCity(tempHeights: highestDailyTemp[], city: string) {
+  let tempSum = summarizeCityTemps(tempHeights, city)
+
+  return calcAverageWeekly(tempSum);
+}
+
+function summarizeCityTemps(tempHeights: highestDailyTemp[], city: string):number {
   const startingValue: number = 0;
 
-  let tempSum = tempHeights.reduce((tempSum: number, tempInfo: highestDailyTemp) => {
+  return tempHeights.reduce((tempSum: number, tempInfo: highestDailyTemp) => {
     if (tempInfo.city === city && (isWithinAWeek(tempInfo.timeMeasured))) {
       return tempSum + tempInfo.celsius;
     }
     else return tempSum;
   }, startingValue);
-
-  return tempSum / DAYS_IN_WEEK;
 }
 
 function isWithinAWeek(timeMeasured: Date): boolean {
+  const WEEK_IN_MS: number = 604800000;
+
   if (timeMeasured.getTime() > Date.now() - WEEK_IN_MS) {
     return true;
   }
-  else return false;
+  return false;
+}
+
+function calcAverageWeekly(sum: number):number {
+  const DAYS_IN_WEEK: number = 7;
+  return sum / DAYS_IN_WEEK;
 }
 
 /*
@@ -75,7 +83,7 @@ function showProduct(product: GProduct) {
   container.appendChild(title);
   container.appendChild(imageTag);
   container.appendChild(price);
-  product.parent.appendChild(container);
+  product.parent?.appendChild(container);
 }
 
 /*
