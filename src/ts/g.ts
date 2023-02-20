@@ -94,25 +94,51 @@ function showProduct(product: GProduct) {
 
 function presentStudents(students: Student[]) {
   for (const student of students) {
-    let container = document.createElement("li") as HTMLLIElement;
-    let nameElement = document.createElement('div') as HTMLDivElement;
-    let checkbox = document.createElement("input") as HTMLInputElement;
-    container.classList.add('flex-direction-column');
-    checkbox.type = "checkbox";
-    checkbox.checked = false;
-    nameElement.innerText = student.name;
-    let listOfStudents = document.querySelector("ul#failedstudents") as HTMLUListElement;
-   
-    if (student.handedInOnTime) {
-      listOfStudents = document.querySelector("ul#passedstudents") as HTMLUListElement;
-      checkbox.checked = true;
-    }
+    let container = createStudentLiElement();
+    let nameElement = createNameElement(student.name);
+    let checkbox = createCheckboxElement(student.handedInOnTime);
+    let listOfStudents = createStudentUlElement(student.handedInOnTime);
 
     container.appendChild(nameElement)
     container.appendChild(checkbox);
     listOfStudents?.appendChild(container);
   }
 }
+
+function createStudentLiElement() {
+  let liContainer = document.createElement("li") as HTMLLIElement;
+  liContainer.classList.add('flex-direction-column');
+  return liContainer;
+}
+
+function createNameElement(studentName: string) {
+  let nameEl = document.createElement('h3') as HTMLHeadingElement;
+  nameEl.innerText = studentName;
+  return nameEl;
+}
+
+function createCheckboxElement(onTime: boolean): HTMLInputElement {
+  let checkbox = document.createElement("input") as HTMLInputElement;
+  checkbox.type = "checkbox";
+  checkbox.checked = false;
+  if (onTime) {
+    checkbox.checked = true;
+  }
+  return checkbox;
+}
+
+function createStudentUlElement(onTime: boolean): HTMLUListElement {
+  let ulElement = document.createElement('ul') as HTMLUListElement;
+  if (onTime) {
+    ulElement.classList.add("passedstudents");
+  }
+  else {
+    ulElement.classList.add("failedstudents");
+  }
+
+  return ulElement;
+}
+
 
 /*
   6. Skriv en funktion som skall slå ihop följande texter på ett bra sätt:
