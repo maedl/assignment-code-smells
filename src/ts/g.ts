@@ -52,16 +52,17 @@ function summarizeCityTemps(tempHeights: highestDailyTemp[], city: string):numbe
 }
 
 function isWithinAWeek(timeMeasured: Date): boolean {
-  const WEEK_IN_MS: number = 604800000;
+  const weekInMs: number = 604800000;
 
-  if (timeMeasured.getTime() > Date.now() - WEEK_IN_MS) {
+  if (timeMeasured.getTime() > Date.now() - weekInMs) {
     return true;
   }
   return false;
 }
 
+const DAYS_IN_WEEK: number = 7;
+
 function calcAverageWeekly(sum: number):number {
-  const DAYS_IN_WEEK: number = 7;
   return sum / DAYS_IN_WEEK;
 }
 
